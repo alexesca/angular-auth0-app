@@ -1,0 +1,6 @@
+{
+    "domain": "alexesca.auth0.com",
+    "clientId": "lniVMhs5Ghc4ullPpoMjnGMqgo3tPUV4",
+    "audience": "https://express.sample",
+    "serverUrl": "http://localhost:6060"
+}
