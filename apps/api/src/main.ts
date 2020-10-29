@@ -34,7 +34,7 @@ async function bootstrap() {
         if (req.originalUrl === '/') {
           return true
         };
-        var ext = url.parse(req.originalUrl).pathname.substr(-5);
+        var ext = url.parse(req.originalUrl).pathname.substr(-4);
         const isExtensionInArray = includes(['.jpg', '.html', '.css', '.js', '.json', '.png', '.ico'], ext);
         return isExtensionInArray;
       }

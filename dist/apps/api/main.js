@@ -309,7 +309,7 @@ function bootstrap() {
                     return true;
                 }
                 ;
-                var ext = url.parse(req.originalUrl).pathname.substr(-5);
+                var ext = url.parse(req.originalUrl).pathname.substr(-4);
                 const isExtensionInArray = Object(lodash__WEBPACK_IMPORTED_MODULE_5__["includes"])(['.jpg', '.html', '.css', '.js', '.json', '.png', '.ico'], ext);
                 return isExtensionInArray;
             }
