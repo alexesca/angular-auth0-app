@@ -8,6 +8,7 @@ import { NestFactory } from '@nestjs/core';
 import * as jwt from "express-jwt";
 import * as jwks from "jwks-rsa";
 const url = require('url');
+import { includes } from 'lodash';
 
 import { AppModule } from './app/app.module';
 
@@ -29,16 +30,22 @@ async function bootstrap() {
     algorithms: ['RS256']
   })
     .unless({
-      path: [
-        '/index.html',
-        { url: '/', methods: ['GET', 'PUT'] }
-      ],
       custom: function (req) {
-        var ext = url.parse(req.originalUrl).pathname.substr(-4);
-        return !~['.jpg', '.html', '.css', '.js', '.json', '.png', '.ico'].indexOf(ext);
+        if (req.originalUrl === '/') {
+          return true
+        };
+        var ext = url.parse(req.originalUrl).pathname.substr(-5);
+        const isExtensionInArray = includes(['.jpg', '.html', '.css', '.js', '.json', '.png', '.ico'], ext);
+        return isExtensionInArray;
       }
     })
   app.use(auth0JWTMiddleware);
+  app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+      res.status(401).send('invalid token...');
+    }
+  });
+  // app.use(jwt({ secret: 'shhhhhhared-secret', algorithms: ['HS256'] }));
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
