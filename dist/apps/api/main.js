@@ -284,7 +284,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const url = __webpack_require__(15);
 
 
 function bootstrap() {
@@ -305,13 +304,10 @@ function bootstrap() {
         })
             .unless({
             custom: function (req) {
-                if (req.originalUrl === '/') {
-                    return true;
-                }
-                ;
-                var ext = url.parse(req.originalUrl).pathname.substr(-4);
-                const isExtensionInArray = Object(lodash__WEBPACK_IMPORTED_MODULE_5__["includes"])(['.jpg', '.html', '.css', '.js', '.json', '.png', '.ico'], ext);
-                return isExtensionInArray;
+                const url = req.originalUrl;
+                var ext = url.substring(url.lastIndexOf('.') + 1, url.length) || url;
+                const isExtensionInWhiteList = Object(lodash__WEBPACK_IMPORTED_MODULE_5__["includes"])(['jpg', 'html', 'css', 'js', 'json', 'png', 'ico', '/'], ext);
+                return isExtensionInWhiteList;
             }
         });
         app.use(auth0JWTMiddleware);
@@ -329,12 +325,6 @@ function bootstrap() {
 }
 bootstrap();
 
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("url");
 
 /***/ })
 /******/ ])));

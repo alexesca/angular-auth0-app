@@ -7,7 +7,6 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as jwt from "express-jwt";
 import * as jwks from "jwks-rsa";
-const url = require('url');
 import { includes } from 'lodash';
 
 import { AppModule } from './app/app.module';
@@ -31,12 +30,10 @@ async function bootstrap() {
   })
     .unless({
       custom: function (req) {
-        if (req.originalUrl === '/') {
-          return true
-        };
-        var ext = url.parse(req.originalUrl).pathname.substr(-4);
-        const isExtensionInArray = includes(['.jpg', '.html', '.css', '.js', '.json', '.png', '.ico'], ext);
-        return isExtensionInArray;
+        const url = req.originalUrl;
+        var ext = url.substring(url.lastIndexOf('.') + 1, url.length) || url;
+        const isExtensionInWhiteList = includes(['jpg', 'html', 'css', 'js', 'json', 'png', 'ico', '/'], ext);
+        return isExtensionInWhiteList;
       }
     })
   app.use(auth0JWTMiddleware);
