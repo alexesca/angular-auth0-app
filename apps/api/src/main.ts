@@ -22,11 +22,11 @@ async function bootstrap() {
       cache: true,
       rateLimit: true,
       jwksRequestsPerMinute: 5,
-      jwksUri: process.env.JWKS_URI
+      jwksUri: 'https://auth-app-1.auth0.com/.well-known/jwks.json'
     }),
-    audience: process.env.AUTH0_AUDIENCE,
-    issuer: process.env.AUTH0_ISSUER_URL,
-    algorithms: [process.env.AUTH_ALGORITHM]
+    audience: 'http://localhost:8080',
+    issuer: 'https://auth-app-1.auth0.com/',
+    algorithms: ['RS256']
   })
     .unless({
       path: [
