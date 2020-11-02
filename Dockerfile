@@ -12,6 +12,8 @@ COPY dist/apps/nx-app ./nx-app
 
 RUN  npm install
 
-EXPOSE 4200
+EXPOSE 8080
 
 ENTRYPOINT ["node", "./api/main.js"]
+
+CMD [ "npm", "start" ]
