@@ -13,6 +13,9 @@ import { LoginButtonComponent } from './components/login-button/login-button.com
 import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SignupButtonComponent } from './components/signup-button/signup-button.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
@@ -24,13 +27,16 @@ import { SignupButtonComponent } from './components/signup-button/signup-button.
     LoginButtonComponent,
     LogoutButtonComponent,
     NavBarComponent,
-    SignupButtonComponent
+    SignupButtonComponent,
+    HomeComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
     AuthModule.forRoot({
       ...env.auth,
     }),
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

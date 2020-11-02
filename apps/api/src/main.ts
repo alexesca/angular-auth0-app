@@ -31,9 +31,18 @@ async function bootstrap() {
     .unless({
       custom: function (req) {
         const url = req.originalUrl;
-        var ext = url.substring(url.lastIndexOf('.') + 1, url.length) || url;
-        const isExtensionInWhiteList = includes(['jpg', 'html', 'css', 'js', 'json', 'png', 'ico', '/'], ext);
-        return isExtensionInWhiteList;
+        if (/\^\/api\//.test(url)) {
+          return false;
+        } else {
+          return true;
+        }
+        // var ext = url.substring(url.lastIndexOf('.') + 1, url.length) || url;
+        // const isExtensionInWhiteList = includes([
+        //   'jpg', 'html', 'css',
+        //   'js', 'json', 'png',
+        //   'ico',
+        //   '/', '/graphql'], ext);
+        // return isExtensionInWhiteList;
       }
     })
   app.use(auth0JWTMiddleware);
@@ -43,7 +52,7 @@ async function bootstrap() {
     }
   });
   // app.use(jwt({ secret: 'shhhhhhared-secret', algorithms: ['HS256'] }));
-  const port = process.env.PORT || 3333;
+  const port = process.env.PORT || 4200;
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
   });

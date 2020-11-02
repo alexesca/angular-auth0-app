@@ -1,0 +1,7 @@
+version: "3"
+services: 
+  api:
+    container_name: nxtoheroku
+    build: .
+    ports:
+      - "4200:4200" 
